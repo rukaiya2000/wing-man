@@ -80,8 +80,8 @@ and outside Claude Code there is simply no prompt on the record.
 Claude's own reasoning is *not* captured, because it isn't there to capture:
 the harness writes thinking blocks to the transcript with their text
 stripped. The `reasoning` field on an `llm` event is the drafting model's
-own chain, which arrives only from reasoning models — `gpt-4o-mini` sends
-none, so the field stays empty until `OPENAI_MODEL` changes.
+own chain, which arrives only when the agent thinks before answering. Short
+drafting prompts usually don't, so the field is often empty.
 
 Each run is attributed to the skill that drives it. Where the transcript
 names one, that is used (`skill_source: transcript`); otherwise it is

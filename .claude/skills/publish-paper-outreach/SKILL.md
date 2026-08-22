@@ -124,7 +124,7 @@ needed, and it's a silent no-op when nothing new happened.
 ## Notes
 
 - If a script exits with a config error (missing `NOTION_API_TOKEN`,
-  `OPENAI_API_KEY`, etc.) or says an OAuth token needs
+  Notion/Gmail credentials, etc.) or says an OAuth token needs
   `gmail_oauth_login.py`/`x_oauth_login.py` re-run, surface that directly —
   don't try to work around it.
 - LinkedIn has no send or read API at all — sends go through the founder's

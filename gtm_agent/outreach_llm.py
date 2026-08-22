@@ -1,4 +1,9 @@
-"""OpenAI-backed writing help for research outreach.
+"""Agent-backed writing help for research outreach.
+
+Drafting runs through the Claude Agent SDK — the same agent already driving
+this repo's skills — so there is no separate model API key to hold. It
+authenticates the way Claude Code does; ``ANTHROPIC_API_KEY`` is honoured if
+set but nothing here requires one.
 
 The model only ever rephrases facts this app already fetched from OpenAlex or
 Semantic Scholar. It is never asked to recall or guess who someone is, where
@@ -6,18 +11,27 @@ they work, or where their profiles live — that is exactly the kind of detail a
 LLM invents confidently, and a wrong affiliation in a cold email is fatal.
 """
 
+import asyncio
 import json
 import os
 import time
 
-import requests
-
 from gtm_agent import trajectory
-from gtm_agent.config import ConfigError, get_openai_api_key
 
-OPENAI_CHAT_URL = "https://api.openai.com/v1/chat/completions"
-DEFAULT_MODEL = os.environ.get("OPENAI_MODEL", "gpt-4o-mini")
-TIMEOUT_SECONDS = 45
+try:
+    from claude_agent_sdk import (
+        AssistantMessage,
+        ClaudeAgentOptions,
+        ResultMessage,
+        TextBlock,
+        ThinkingBlock,
+        query,
+    )
+except ImportError:  # pragma: no cover - exercised only without the extra installed
+    query = None
+
+DEFAULT_MODEL = os.environ.get("OUTREACH_MODEL", "claude-opus-5")
+TIMEOUT_SECONDS = 120
 
 GROUNDING_RULE = (
     "Use only the facts in the JSON provided. Never add employers, titles, locations, "
@@ -31,44 +45,92 @@ class OutreachLLMError(RuntimeError):
     """Writing help was unavailable. Callers must keep the fetched facts usable."""
 
 
+async def _run(system: str, user: str) -> tuple[str, str | None, dict, float | None]:
+    """One single-turn, tool-less agent call. Returns (text, thinking, usage, cost)."""
+    options = ClaudeAgentOptions(
+        system_prompt=system,
+        model=DEFAULT_MODEL,
+        max_turns=1,
+        # Pure text generation: no tool should ever fire, and the agent must not
+        # inherit this repo's settings/skills — the prompt is the whole contract.
+        allowed_tools=[],
+        disallowed_tools=["Bash", "Edit", "Write", "NotebookEdit", "Read", "Glob", "Grep", "WebSearch", "WebFetch", "Agent"],
+        setting_sources=[],
+    )
+    chunks: list[str] = []
+    thinking: list[str] = []
+    usage: dict = {}
+    cost: float | None = None
+    result_text: str | None = None
+
+    async for message in query(prompt=user, options=options):
+        if isinstance(message, AssistantMessage):
+            for block in message.content:
+                if isinstance(block, TextBlock):
+                    chunks.append(block.text)
+                elif isinstance(block, ThinkingBlock):
+                    thinking.append(getattr(block, "thinking", "") or "")
+        elif isinstance(message, ResultMessage):
+            if message.is_error:
+                raise OutreachLLMError(
+                    f"The writing agent failed: {message.result or message.api_error_status or 'unknown error'}"
+                )
+            result_text = message.result
+            cost = message.total_cost_usd
+            raw_usage = message.usage
+            usage = raw_usage if isinstance(raw_usage, dict) else (dict(raw_usage or {}) if raw_usage else {})
+
+    text = (result_text or "".join(chunks)).strip()
+    if not text:
+        raise OutreachLLMError("The writing agent returned an empty draft.")
+    return text, ("\n".join(t for t in thinking if t) or None), usage, cost
+
+
 def _chat(system: str, user: str, max_tokens: int, purpose: str = "") -> str:
+    """Draft one message.
+
+    ``max_tokens`` is advisory here — the agent SDK takes no output cap, so the
+    real length limits are the explicit word/character ceilings written into
+    each caller's system prompt. It is still passed through to the trajectory
+    so drafts stay comparable with runs made before the switch.
+    """
+    if query is None:
+        trajectory.log_llm(DEFAULT_MODEL, system, user, purpose=purpose, error="claude-agent-sdk not installed")
+        raise OutreachLLMError(
+            "claude-agent-sdk is not installed, so drafting is off. Run `uv sync`. "
+            "The scholarly facts above still apply."
+        )
     try:
-        api_key = get_openai_api_key()
-    except ConfigError as exc:
-        trajectory.log_llm(DEFAULT_MODEL, system, user, purpose=purpose, error="OPENAI_API_KEY not set")
-        raise OutreachLLMError("OPENAI_API_KEY is not set, so drafting is off. The scholarly facts above still apply.") from exc
+        asyncio.get_running_loop()
+    except RuntimeError:
+        pass
+    else:
+        trajectory.log_llm(DEFAULT_MODEL, system, user, purpose=purpose, error="called from a running event loop")
+        raise OutreachLLMError("Drafting cannot run inside an active event loop. Call it from sync code.")
+
     started = time.monotonic()
     try:
-        response = requests.post(
-            OPENAI_CHAT_URL,
-            headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
-            json={
-                "model": DEFAULT_MODEL,
-                "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}],
-                "temperature": 0.4,
-                "max_tokens": max_tokens,
-            },
-            timeout=TIMEOUT_SECONDS,
+        text, reasoning, usage, cost = asyncio.run(
+            asyncio.wait_for(_run(system, user), timeout=TIMEOUT_SECONDS)
         )
-        response.raise_for_status()
-        payload = response.json()
-        choice = payload["choices"][0]["message"]
-        text = (choice["content"] or "").strip()
-        # Reasoning models return their chain separately from the answer, under
-        # a field name that differs by provider. Absent on ordinary models.
-        reasoning = choice.get("reasoning") or choice.get("reasoning_content")
-    except requests.RequestException as exc:
+    except OutreachLLMError as exc:
+        trajectory.log_llm(DEFAULT_MODEL, system, user, purpose=purpose, error=str(exc),
+                           latency_s=round(time.monotonic() - started, 3))
+        raise
+    except asyncio.TimeoutError as exc:
+        trajectory.log_llm(DEFAULT_MODEL, system, user, purpose=purpose,
+                           error=f"timed out after {TIMEOUT_SECONDS}s",
+                           latency_s=round(time.monotonic() - started, 3))
+        raise OutreachLLMError("The writing agent timed out. Please try again shortly.") from exc
+    except Exception as exc:
         trajectory.log_llm(DEFAULT_MODEL, system, user, purpose=purpose, error=f"{type(exc).__name__}: {exc}",
                            latency_s=round(time.monotonic() - started, 3))
-        raise OutreachLLMError("The writing model is unavailable right now. Please try again shortly.") from exc
-    except (KeyError, IndexError, ValueError) as exc:
-        trajectory.log_llm(DEFAULT_MODEL, system, user, purpose=purpose, error=f"malformed response: {exc}",
-                           latency_s=round(time.monotonic() - started, 3))
-        raise OutreachLLMError("The writing model returned an unexpected response.") from exc
+        raise OutreachLLMError("The writing agent is unavailable right now. Please try again shortly.") from exc
+
     trajectory.log_llm(
         DEFAULT_MODEL, system, user, response=text, reasoning=reasoning, purpose=purpose,
-        usage=payload.get("usage"), latency_s=round(time.monotonic() - started, 3),
-        finish_reason=(payload.get("choices") or [{}])[0].get("finish_reason"),
+        usage=usage, latency_s=round(time.monotonic() - started, 3), cost_usd=cost,
+        max_tokens_hint=max_tokens,
     )
     return text
 

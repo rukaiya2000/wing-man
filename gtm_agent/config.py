@@ -74,10 +74,6 @@ def get_typefully_social_set_id() -> str:
     return _require_env("TYPEFULLY_SOCIAL_SET_ID")
 
 
-def get_openai_api_key() -> str:
-    return _require_env("OPENAI_API_KEY")
-
-
 def get_openalex_mailto() -> str | None:
     """Optional. Sending a contact address moves us to OpenAlex's polite pool."""
     return os.environ.get("OPENALEX_MAILTO")

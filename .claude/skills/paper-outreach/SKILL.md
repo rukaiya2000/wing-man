@@ -67,7 +67,7 @@ linked Paper Authors row until this step backfills it.
 
 Report per-paper: how many authors were staged, how many landed
 `Draft Ready` (confirmed email/handle) vs `Needs Handles`, and the generated
-Blurb. Needs `OPENAI_API_KEY`.
+Blurb. Drafting runs through the Claude Agent SDK — no model API key needed.
 
 ## Step 2 — Web-research missing handles
 
@@ -123,7 +123,7 @@ new was staged.
 ## Notes
 
 - If a script exits with a config error (missing `NOTION_API_TOKEN`,
-  `OPENAI_API_KEY`, etc.), surface that directly — don't try to work around
+  Notion/Gmail credentials, etc.), surface that directly — don't try to work around
   it.
 - A hand-written `Message`, `Subject`, or `LinkedIn Note` in Notion is always
   used as-is and never overwritten by Step 3.

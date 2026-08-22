@@ -7,12 +7,10 @@ dependencies = [
     "requests>=2.31",
     "python-dotenv>=1.0",
     "pypdf>=4.0",
+    # Drafting (outreach_llm.py) and author research (research_authors.py) both
+    # run through the agent, so this is no longer optional.
+    "claude-agent-sdk>=0.1.0",
 ]
-
-[project.optional-dependencies]
-# Only for gtm_agent/research_authors.py (paper-outreach run 1.5); the rest of
-# the pipeline never needs it.
-research = ["claude-agent-sdk>=0.1.0"]
 
 [build-system]
 requires = ["setuptools>=68"]
