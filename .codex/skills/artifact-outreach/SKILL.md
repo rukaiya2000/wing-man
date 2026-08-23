@@ -1,6 +1,6 @@
 ---
 name: artifact-outreach
-description: Turn one paper, benchmark, repository, blog post, or research artifact into review-ready outreach rows in Notion. Never contact, export, or sequence anyone.
+description: Turn one paper, benchmark, repository, blog post, or research artifact into review-ready Dripify outreach rows in Notion. Never contact, export, or sequence anyone.
 ---
 
 # Artifact outreach

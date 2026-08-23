@@ -5,6 +5,14 @@
 url = "https://mcp.notion.com/mcp"
 enabled_tools = ["search", "fetch", "notion-create-pages", "notion-update-page", "notion-get-comments"]
 
+# Uses the founder's funded X developer account through the Codex OAuth flow.
+# The allowlist intentionally contains only read operations.
+[mcp_servers.x]
+command = "npx"
+args = ["-y", "@xdevplatform/xurl", "mcp", "https://api.x.com/mcp"]
+startup_timeout_sec = 300
+enabled_tools = ["search_posts", "get_post", "get_user", "get_user_posts", "get_mentions", "search_users"]
+
 # Configure GitHub OAuth through Codex. No mutation tools are enabled.
 [mcp_servers.github]
 url = "https://api.githubcopilot.com/mcp/"

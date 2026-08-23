@@ -14,13 +14,15 @@ class ProjectShapeTests(unittest.TestCase):
     def test_mcp_config_is_parseable_and_read_constrained(self) -> None:
         config = tomllib.loads((ROOT / ".codex" / "config.toml").read_text())
         servers = config["mcp_servers"]
-        self.assertEqual(set(servers), {"notion", "github"})
+        self.assertEqual(set(servers), {"notion", "x", "github"})
+        self.assertEqual(servers["x"]["command"], "npx")
+        self.assertEqual(servers["x"]["startup_timeout_sec"], 300)
         for server in servers.values():
             allowed = " ".join(server["enabled_tools"]).lower()
             self.assertFalse(any(word in allowed for word in ("send", "publish", "delete", "create_article", "bookmark")))
 
     def test_required_skills_and_schemas_exist(self) -> None:
-        for name in ("find-leads", "deep-search", "artifact-outreach"):
+        for name in ("find-leads", "deep-search", "x-reply-angles", "polish-x-drafts", "artifact-outreach"):
             content = (ROOT / ".codex" / "skills" / name / "SKILL.md").read_text()
             self.assertTrue(content.startswith("---\n"))
             self.assertIn("\n---\n", content)

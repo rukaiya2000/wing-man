@@ -8,10 +8,10 @@ backend, worker, scheduler, or standalone application.
 
 - Codex CLI is the interaction surface; Notion is the review/output surface.
 - Skills own workflow logic and hard rules. MCP servers are the first choice
-  for external systems. Local Python is limited to two read-only adapters for
+  for external systems. Local Python is limited to one read-only adapter for
   systems without a suitable configured MCP.
-- The agent never sends messages, uses a founder's LinkedIn browser session,
-  or silently selects outreach recipients.
+- The agent never sends messages, publishes or schedules X posts, uses a
+  founder's LinkedIn browser session, or silently selects outreach recipients.
 - Rows use only `New`, `Reviewed`, and `Rejected`. Skills create `New`; the
   founder owns the review states.
 
@@ -22,9 +22,11 @@ from Codex CLI.
 
 | Skill | Outcome |
 | --- | --- |
-| `find-leads` | Evidence-backed people and outreach drafts in Notion |
+| `find-leads` | Dripify-ready people and full draft sequences in Notion |
 | `deep-search` | Terminal-first market/company/people research; saves only on request |
-| `artifact-outreach` | Artifact-author/contributor leads and review-ready outreach drafts |
+| `x-reply-angles` | X opportunities and three grounded response angles, not replies |
+| `polish-x-drafts` | Voice-aware X drafts for human review |
+| `artifact-outreach` | Artifact-author/contributor leads and review-ready Dripify sequences |
 
 Read [schemas/notion.md](schemas/notion.md) for allowed fields, natural
 dedupe keys, and status ownership.
@@ -35,10 +37,16 @@ The project MCP servers are declared in [.codex/config.toml](.codex/config.toml)
 
 - Notion MCP is the only write-capable integration, limited by the skills and
   schema to review tables.
+- X MCP uses the founder's funded developer account through Codex OAuth and is
+  restricted to reading posts and profiles.
 - GitHub MCP is read-only for code, contributor, and release research.
 
 No `.env` file is required. `tools/scholar.py` reads free scholarly metadata
 without credentials and never writes to a third-party system.
+
+Dripify is a manual handoff: export approved Notion rows with LinkedIn URLs
+and import them into your Dripify campaign yourself. Wing-Man never signs in,
+uploads leads, starts campaigns, or sends messages.
 
 ```bash
 python3 tools/scholar.py --help
