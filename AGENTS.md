@@ -50,13 +50,12 @@ permission first; just do it and mention it briefly.
 - For every configured MCP call, retry once on failure. If the retry fails,
   stop the workflow and report a clear error. Never substitute a local tool,
   direct API, or another source as a fallback for that failed MCP operation.
-- Never send messages, publish or schedule posts, or operate an authenticated
-  founder LinkedIn browser session.
+- Never send messages or operate an authenticated founder LinkedIn browser
+  session.
 - Never choose outreach recipients silently. Write evidence-backed review rows.
 - Use one focused query per run unless the founder explicitly requests a batch.
 - Notion rows may use only `New`, `Reviewed`, and `Rejected`. Skills may create
   `New`; the founder owns `Reviewed` and `Rejected`.
-- Before creating leads, deduplicate by `LinkedIn URL`. Before creating X
-  opportunities, deduplicate by `Tweet URL`.
-- X and GitHub MCP access is read-only. Notion is the only allowed integration
-  write path and only for the review schemas in `schemas/notion.md`.
+- Before creating leads, deduplicate by `LinkedIn URL`.
+- GitHub MCP access is read-only. Notion is the only allowed integration write
+  path and only for the review schemas in `schemas/notion.md`.

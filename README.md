@@ -4,16 +4,14 @@ Wing-Man is a Codex CLI skill pack for founder-led go-to-market work. It
 turns a focused request into a review-ready Notion artifact; it is not a CRM,
 backend, worker, scheduler, or standalone application.
 
-![Wing-Man workflow: Codex request through research and Notion review to manual Dripify or X handoff](assets/wing-man-workflow.png)
-
 ## Product boundaries
 
 - Codex CLI is the interaction surface; Notion is the review/output surface.
 - Skills own workflow logic and hard rules. MCP servers are the first choice
   for external systems. Local Python is limited to two read-only adapters for
   systems without a suitable configured MCP.
-- The agent never sends messages, publishes or schedules X posts, uses a
-  founder's LinkedIn browser session, or silently selects outreach recipients.
+- The agent never sends messages, uses a founder's LinkedIn browser session,
+  or silently selects outreach recipients.
 - Rows use only `New`, `Reviewed`, and `Rejected`. Skills create `New`; the
   founder owns the review states.
 
@@ -24,11 +22,9 @@ from Codex CLI.
 
 | Skill | Outcome |
 | --- | --- |
-| `find-leads` | Dripify-ready people and full draft sequences in Notion |
+| `find-leads` | Evidence-backed people and outreach drafts in Notion |
 | `deep-search` | Terminal-first market/company/people research; saves only on request |
-| `x-reply-angles` | X opportunities and three grounded response angles, not replies |
-| `polish-x-drafts` | Voice-aware X drafts for human review |
-| `artifact-outreach` | Artifact-author/contributor leads and review-ready Dripify sequences |
+| `artifact-outreach` | Artifact-author/contributor leads and review-ready outreach drafts |
 
 Read [schemas/notion.md](schemas/notion.md) for allowed fields, natural
 dedupe keys, and status ownership.
@@ -39,8 +35,6 @@ The project MCP servers are declared in [.codex/config.toml](.codex/config.toml)
 
 - Notion MCP is the only write-capable integration, limited by the skills and
   schema to review tables.
-- X is read-only and uses the official `xurl` MCP bridge. Complete its OAuth
-  flow when prompted.
 - GitHub MCP is read-only for code, contributor, and release research.
 
 No filled `.env` file is required or committed. The local adapters use no
@@ -51,7 +45,6 @@ need, or export them for that single command. See
 [tools/README.md](tools/README.md) for details.
 
 ```bash
-python3 tools/linkedin_fresh.py --help
 python3 tools/scholar.py --help
 ```
 

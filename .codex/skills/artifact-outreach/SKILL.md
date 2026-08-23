@@ -1,6 +1,6 @@
 ---
 name: artifact-outreach
-description: Turn one paper, benchmark, repository, blog post, or research artifact into review-ready Dripify outreach rows in Notion. Never contact, export, or sequence anyone.
+description: Turn one paper, benchmark, repository, blog post, or research artifact into review-ready outreach rows in Notion. Never contact, export, or sequence anyone.
 ---
 
 # Artifact outreach
@@ -19,9 +19,8 @@ that failed operation.
 2. Prioritize first, corresponding, and senior authors; active maintainers;
    and contributors at clearly relevant labs or companies. Do not silently
    choose a recipient—every candidate belongs in a review row with rationale.
-3. Enrich current organization, role, and LinkedIn URL with professional-data
-   MCP or `tools/linkedin_fresh.py`. Never use an authenticated LinkedIn browser
-   session.
+3. Use public web evidence for current organization, role, and LinkedIn URL.
+   Never use an authenticated LinkedIn browser session.
 4. Query existing `Artifact Outreach Leads` by `LinkedIn URL` before creating
    anything. For candidates without URLs, create a manual-review row only when
    the evidence is strong enough to justify it.

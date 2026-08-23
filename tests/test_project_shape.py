@@ -14,15 +14,13 @@ class ProjectShapeTests(unittest.TestCase):
     def test_mcp_config_is_parseable_and_read_constrained(self) -> None:
         config = tomllib.loads((ROOT / ".codex" / "config.toml").read_text())
         servers = config["mcp_servers"]
-        self.assertEqual(set(servers), {"notion", "x", "github"})
-        self.assertEqual(servers["x"]["command"], "npx")
-        self.assertEqual(servers["x"]["startup_timeout_sec"], 300)
+        self.assertEqual(set(servers), {"notion", "github"})
         for server in servers.values():
             allowed = " ".join(server["enabled_tools"]).lower()
             self.assertFalse(any(word in allowed for word in ("send", "publish", "delete", "create_article", "bookmark")))
 
     def test_required_skills_and_schemas_exist(self) -> None:
-        for name in ("find-leads", "deep-search", "x-reply-angles", "polish-x-drafts", "artifact-outreach"):
+        for name in ("find-leads", "deep-search", "artifact-outreach"):
             content = (ROOT / ".codex" / "skills" / name / "SKILL.md").read_text()
             self.assertTrue(content.startswith("---\n"))
             self.assertIn("\n---\n", content)
@@ -39,7 +37,7 @@ class ProjectShapeTests(unittest.TestCase):
         self.assertFalse(obsolete.intersection(path.name for path in (ROOT / ".codex" / "skills").iterdir()))
 
     def test_fallback_tools_are_read_only_and_have_help(self) -> None:
-        for name in ("linkedin_fresh.py", "scholar.py"):
+        for name in ("scholar.py",):
             source = (ROOT / "tools" / name).read_text()
             self.assertNotIn("requests.post", source)
             self.assertNotIn("requests.put", source)
