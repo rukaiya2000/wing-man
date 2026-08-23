@@ -6,6 +6,7 @@ description: Find relevant X posts and add evidence-backed reply angles to Notio
 # X reply angles
 
 Create review-ready rows in `X Reply Opportunities`; read
+[notion-map.md](../../../notion-map.md) for the confirmed destination and
 [schemas/notion.md](../../../schemas/notion.md) before writing.
 
 For every MCP call, retry once on failure. If the retry fails, stop and report

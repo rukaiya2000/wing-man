@@ -28,8 +28,9 @@ from Codex CLI.
 | `polish-x-drafts` | Voice-aware X drafts for human review |
 | `artifact-outreach` | Artifact-author/contributor leads and review-ready Dripify sequences |
 
-Read [schemas/notion.md](schemas/notion.md) for allowed fields, natural
-dedupe keys, and status ownership.
+Read [notion-map.md](notion-map.md) for Notion read/write locations and
+[schemas/notion.md](schemas/notion.md) for allowed fields, natural dedupe keys,
+and status ownership.
 
 ## Codex configuration
 

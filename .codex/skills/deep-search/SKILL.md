@@ -20,7 +20,8 @@ Distinguish source facts from inference and identify missing evidence.
 Do not draft outreach in this workflow. Do not write anywhere by default.
 Only after showing the report, save the same evidence to a Markdown artifact or
 the `Research Reports` Notion surface if the founder explicitly asks. When
-saving to Notion, read [schemas/notion.md](../../../schemas/notion.md), use
-`Status = New`, and preserve the underlying source links.
+saving to Notion, read [notion-map.md](../../../notion-map.md) for the confirmed
+destination and [schemas/notion.md](../../../schemas/notion.md), use `Status =
+New`, and preserve the underlying source links.
 
 After a Notion save, run `.codex/memory-update-procedure.md` as the last step.

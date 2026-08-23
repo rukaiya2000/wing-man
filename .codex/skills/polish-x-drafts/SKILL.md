@@ -5,7 +5,9 @@ description: Turn a rough note or existing X Drafts row into a polished review-o
 
 # Polish X drafts
 
-Read the source note or X Drafts row, then read [schemas/notion.md](../../../schemas/notion.md).
+Read the source note or X Drafts row, then read
+[notion-map.md](../../../notion-map.md) for the confirmed destination and
+[schemas/notion.md](../../../schemas/notion.md).
 
 For every MCP call, retry once on failure. If the retry fails, stop and report
 the error; do not substitute a local tool, direct API, or another source for
