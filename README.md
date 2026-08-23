@@ -4,6 +4,8 @@ GTM Agent is a Codex CLI skill pack for founder-led go-to-market work. It
 turns a focused request into a review-ready Notion artifact; it is not a CRM,
 backend, worker, scheduler, or standalone application.
 
+![GTM Agent workflow: Codex request through research and Notion review to manual Dripify or X handoff](assets/gtm-agent-workflow.png)
+
 ## Product boundaries
 
 - Codex CLI is the interaction surface; Notion is the review/output surface.
