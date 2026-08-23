@@ -22,15 +22,12 @@ def fail(message: str) -> "None":
 
 
 def get(url: str, params: dict[str, str] | None = None, headers: dict[str, str] | None = None) -> dict[str, Any]:
-    query = dict(params or {})
-    if url.startswith(OPENALEX) and os.getenv("OPENALEX_MAILTO"):
-        query["mailto"] = os.environ["OPENALEX_MAILTO"]
     try:
         import requests
     except ImportError:
         fail("install the fallback dependency with: python3 -m pip install requests")
     try:
-        response = requests.get(url, params=query, headers=headers, timeout=TIMEOUT_SECONDS)
+        response = requests.get(url, params=params, headers=headers, timeout=TIMEOUT_SECONDS)
         response.raise_for_status()
     except requests.RequestException as exc:
         fail(f"Scholarly metadata read failed: {exc}")
