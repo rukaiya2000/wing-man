@@ -8,9 +8,13 @@ description: Find relevant X posts and add evidence-backed reply angles to Notio
 Create review-ready rows in `X Reply Opportunities`; read
 [schemas/notion.md](../../../schemas/notion.md) before writing.
 
+For every MCP call, retry once on failure. If the retry fails, stop and report
+the error; do not substitute a local tool, direct API, or another source for
+that failed operation.
+
 1. Use X MCP to fetch the founder's latest 10–30 posts as the primary current
    voice and topic reference, then search recent relevant posts for the given
-   topic. Use `tools/x_read.py` only if X MCP is unavailable.
+   topic.
 2. Read each candidate post and research any linked paper, repository, product,
    article, or thread before forming an angle. Keep source URLs in `Grounding`.
 3. Fetch the target Notion database and deduplicate by `Tweet URL`.

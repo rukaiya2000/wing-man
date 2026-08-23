@@ -7,8 +7,12 @@ description: Turn a rough note or existing X Drafts row into a polished review-o
 
 Read the source note or X Drafts row, then read [schemas/notion.md](../../../schemas/notion.md).
 
+For every MCP call, retry once on failure. If the retry fails, stop and report
+the error; do not substitute a local tool, direct API, or another source for
+that failed operation.
+
 1. Fetch the founder's latest 10–30 posts with X MCP as the primary voice and
-   taste reference. Use `tools/x_read.py` only if that MCP is unavailable.
+   taste reference.
 2. Preserve the founder's argument. Do not add claims that cannot be supported
    by the original note or provided context.
 3. Choose the requested `Post Type`; when no type is provided, recommend a

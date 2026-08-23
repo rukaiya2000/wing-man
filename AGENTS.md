@@ -42,11 +42,14 @@ permission first; just do it and mention it briefly.
 - If none of the 5 files exist yet, this instruction doesn't apply —
   `memory/` hasn't been set up.
 
-## GTM hard rules
+## Wing-Man hard rules
 
 - Codex CLI is the interaction surface; Notion is the review/output surface.
 - Use a Codex skill for workflow rules, then MCP for external systems. Use a
-  purpose-built adapter only when MCP is unavailable or unsuitable.
+  purpose-built adapter only for a system with no suitable configured MCP.
+- For every configured MCP call, retry once on failure. If the retry fails,
+  stop the workflow and report a clear error. Never substitute a local tool,
+  direct API, or another source as a fallback for that failed MCP operation.
 - Never send messages, publish or schedule posts, or operate an authenticated
   founder LinkedIn browser session.
 - Never choose outreach recipients silently. Write evidence-backed review rows.

@@ -10,7 +10,8 @@ backend, worker, scheduler, or standalone application.
 
 - Codex CLI is the interaction surface; Notion is the review/output surface.
 - Skills own workflow logic and hard rules. MCP servers are the first choice
-  for external systems. Local Python is limited to three read-only fallbacks.
+  for external systems. Local Python is limited to two read-only adapters for
+  systems without a suitable configured MCP.
 - The agent never sends messages, publishes or schedules X posts, uses a
   founder's LinkedIn browser session, or silently selects outreach recipients.
 - Rows use only `New`, `Reviewed`, and `Rejected`. Skills create `New`; the
@@ -42,13 +43,14 @@ The project MCP servers are declared in [.codex/config.toml](.codex/config.toml)
   flow when prompted.
 - GitHub MCP is read-only for code, contributor, and release research.
 
-No `.env` file is required. Fallback tools use no credentials by default and
-never write to third-party systems. If a fallback is necessary, set only the
-environment variables named in [tools/README.md](tools/README.md) for that
-single command.
+No filled `.env` file is required or committed. The local adapters use no
+credentials by default and never write to third-party systems. If you use one
+for a system without a suitable configured MCP, copy
+[.env.example](.env.example) to a local `.env` and set only the values you
+need, or export them for that single command. See
+[tools/README.md](tools/README.md) for details.
 
 ```bash
-python3 tools/x_read.py --help
 python3 tools/linkedin_fresh.py --help
 python3 tools/scholar.py --help
 ```

@@ -9,9 +9,13 @@ Given one artifact, identify people worth reviewing and write `Artifact
 Outreach Leads`. Read [schemas/notion.md](../../../schemas/notion.md) before
 creating rows.
 
+For every MCP call, retry once on failure. If the retry fails, stop and report
+the error; do not substitute a local tool, direct API, or another source for
+that failed operation.
+
 1. Resolve the artifact. Use GitHub MCP for repositories and contributors;
-   otherwise use web research and `tools/scholar.py` when scholarly metadata is
-   insufficient. Keep the canonical artifact URL and evidence.
+   use web research and `tools/scholar.py` for non-repository scholarly
+   artifacts. Keep the canonical artifact URL and evidence.
 2. Prioritize first, corresponding, and senior authors; active maintainers;
    and contributors at clearly relevant labs or companies. Do not silently
    choose a recipient—every candidate belongs in a review row with rationale.

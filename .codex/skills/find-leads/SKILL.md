@@ -8,13 +8,17 @@ description: Build a review-ready Dripify lead table in Notion from one target d
 Turn one focused targeting request into evidence-backed rows in `Dripify Leads`.
 Read [schemas/notion.md](../../../schemas/notion.md) before any Notion write.
 
+For every MCP call, retry once on failure. If the retry fails, stop and report
+the error; do not substitute a local tool, direct API, or another source for
+that failed operation.
+
 1. Interpret one target query. If the founder asks for several distinct target
    groups, process only the explicitly requested batch; otherwise keep the run
    to one group. Ask one question only when role, company type, or geography is
    essential and genuinely ambiguous.
 2. Research companies and people with web search. Verify current role and the
    signal that makes each lead relevant; retain the source URLs.
-3. Use a professional-data MCP when available. Otherwise use
+3. Use a professional-data MCP when configured. Otherwise use
    `tools/linkedin_fresh.py` for discovery/enrichment. Never automate a
    founder's LinkedIn session or connection flow.
 4. Fetch the `Dripify Leads` schema and query existing rows by `LinkedIn URL`.

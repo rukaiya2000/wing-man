@@ -8,6 +8,10 @@ description: Research one market, company, or people question and present an evi
 Research one question at a time. Ask one clarifying question only when the
 scope materially changes the result.
 
+For every MCP call, retry once on failure. If the retry fails, stop and report
+the error; do not substitute a local tool, direct API, or another source for
+that failed operation.
+
 Use web search for current evidence and GitHub MCP for code, contributors, and
 technical signals. Produce a terminal-first table with the entity, what it
 does, why it matters, source links, signal date, and targeting implication.
