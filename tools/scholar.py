@@ -5,7 +5,6 @@ from __future__ import annotations
 
 import argparse
 import json
-import os
 import re
 import sys
 from typing import Any
@@ -68,11 +67,9 @@ def normalize_work(work: dict[str, Any]) -> dict[str, Any]:
 
 def semantic_artifact(query: str) -> dict[str, Any]:
     """Use Semantic Scholar only when OpenAlex cannot identify a work."""
-    headers = {"x-api-key": os.environ["SEMANTIC_SCHOLAR_API_KEY"]} if os.getenv("SEMANTIC_SCHOLAR_API_KEY") else None
     response = get(
         f"{SEMANTIC_SCHOLAR}/paper/search",
         {"query": query, "limit": "1", "fields": "title,year,externalIds,url,citationCount,authors.authorId,authors.name"},
-        headers,
     )
     work = (response.get("data") or [None])[0]
     if not work:

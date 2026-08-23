@@ -37,12 +37,8 @@ The project MCP servers are declared in [.codex/config.toml](.codex/config.toml)
   schema to review tables.
 - GitHub MCP is read-only for code, contributor, and release research.
 
-No filled `.env` file is required or committed. The local adapters use no
-credentials by default and never write to third-party systems. If you use one
-for a system without a suitable configured MCP, copy
-[.env.example](.env.example) to a local `.env` and set only the values you
-need, or export them for that single command. See
-[tools/README.md](tools/README.md) for details.
+No `.env` file is required. `tools/scholar.py` reads free scholarly metadata
+without credentials and never writes to a third-party system.
 
 ```bash
 python3 tools/scholar.py --help
