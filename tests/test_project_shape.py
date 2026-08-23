@@ -39,7 +39,7 @@ class ProjectShapeTests(unittest.TestCase):
         self.assertFalse(obsolete.intersection(path.name for path in (ROOT / ".codex" / "skills").iterdir()))
 
     def test_fallback_tools_are_read_only_and_have_help(self) -> None:
-        for name in ("scholar.py",):
+        for name in ("linkedin_fresh.py", "scholar.py"):
             source = (ROOT / "tools" / name).read_text()
             self.assertNotIn("requests.post", source)
             self.assertNotIn("requests.put", source)

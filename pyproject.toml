@@ -1,7 +1,7 @@
 [project]
 name = "wing-man"
 version = "0.1.0"
-description = "Free scholarly metadata CLI for the Wing-Man Codex skill pack"
+description = "Read-only research adapters for the Wing-Man Codex skill pack"
 requires-python = ">=3.11"
 dependencies = [
     "requests>=2.31",

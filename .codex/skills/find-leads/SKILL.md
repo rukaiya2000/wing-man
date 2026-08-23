@@ -18,8 +18,9 @@ that failed operation.
    essential and genuinely ambiguous.
 2. Research companies and people with web search. Verify current role and the
    signal that makes each lead relevant; retain the source URLs.
-3. Never automate a founder's LinkedIn session or connection flow. Use public
-   web evidence only for company, role, and profile research.
+3. Use a professional-data MCP when configured. Otherwise use
+   `tools/linkedin_fresh.py` for discovery/enrichment. Never automate a
+   founder's LinkedIn session or connection flow.
 4. Fetch the `Dripify Leads` schema and query existing rows by `LinkedIn URL`.
    Do not create a duplicate. A person without a URL may be included only when
    their evidence makes manual review worthwhile.
