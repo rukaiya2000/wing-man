@@ -17,3 +17,10 @@ enabled_tools = ["search_posts", "get_post", "get_user", "get_user_posts", "get_
 [mcp_servers.github]
 url = "https://api.githubcopilot.com/mcp/"
 enabled_tools = ["search_code", "get_file_contents", "list_commits", "list_issues", "get_issue", "list_pull_requests", "get_pull_request", "list_pull_request_files"]
+
+# Fresh LinkedIn Profile Data is a remote RapidAPI MCP. The local bridge loads
+# its key from the ignored .env file rather than this committed configuration.
+[mcp_servers.linkedin_fresh]
+command = "zsh"
+args = ["tools/run_fresh_linkedin_mcp.sh"]
+startup_timeout_sec = 300
