@@ -1,7 +1,7 @@
 [project]
-name = "gtm-agent"
+name = "wing-man"
 version = "0.1.0"
-description = "Narrow fallback CLIs for the GTM Agent Codex skill pack"
+description = "Narrow fallback CLIs for the Wing-Man Codex skill pack"
 requires-python = ">=3.11"
 dependencies = [
     "requests>=2.31",

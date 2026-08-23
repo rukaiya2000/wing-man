@@ -1,10 +1,10 @@
-# GTM Agent
+# Wing-Man
 
-GTM Agent is a Codex CLI skill pack for founder-led go-to-market work. It
+Wing-Man is a Codex CLI skill pack for founder-led go-to-market work. It
 turns a focused request into a review-ready Notion artifact; it is not a CRM,
 backend, worker, scheduler, or standalone application.
 
-![GTM Agent workflow: Codex request through research and Notion review to manual Dripify or X handoff](assets/gtm-agent-workflow.png)
+![Wing-Man workflow: Codex request through research and Notion review to manual Dripify or X handoff](assets/wing-man-workflow.png)
 
 ## Product boundaries
 
