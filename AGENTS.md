@@ -5,10 +5,10 @@
 `memory/` holds what's been learned about the founder's voice, topics, and
 preferences — see `memory/MEMORY.md` and the "Founder memory" section of
 `README.md`. It updates two ways, both automatic, no explicit user request
-needed for either: every skill that touches Notion or `voice_corpus.json`
-runs the procedure in `.codex/memory-update-procedure.md` as its own last
-step, every time it runs (it's a fast no-op when there's no new evidence);
-and this instruction, for anything the founder says directly.
+needed for either: every skill that touches Notion runs the procedure in
+`.codex/memory-update-procedure.md` as its own last step, every time it runs
+(it's a fast no-op when there's no new evidence); and this instruction, for
+anything the founder says directly.
 
 **Whenever the founder states a preference, opinion, like, or dislike
 directly in conversation** — including short, casual, or context-dependent
