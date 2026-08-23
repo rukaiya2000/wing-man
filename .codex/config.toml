@@ -1,0 +1,19 @@
+# Project-scoped MCP configuration. Complete OAuth when Codex prompts; do not
+# put tokens in this file.
+
+[mcp_servers.notion]
+url = "https://mcp.notion.com/mcp"
+enabled_tools = ["search", "fetch", "notion-create-pages", "notion-update-page", "notion-get-comments"]
+
+# The bridge obtains and refreshes X OAuth credentials outside this repository.
+# Its allowlist intentionally contains only read operations.
+[mcp_servers.x]
+command = "npx"
+args = ["-y", "@xdevplatform/xurl", "mcp", "https://api.x.com/mcp"]
+startup_timeout_sec = 300
+enabled_tools = ["search_posts", "get_post", "get_user", "get_user_posts", "get_mentions", "search_users"]
+
+# Configure GitHub OAuth through Codex. No mutation tools are enabled.
+[mcp_servers.github]
+url = "https://api.githubcopilot.com/mcp/"
+enabled_tools = ["search_code", "get_file_contents", "list_commits", "list_issues", "get_issue", "list_pull_requests", "get_pull_request", "list_pull_request_files"]

@@ -1,20 +1,8 @@
 [project]
 name = "gtm-agent"
 version = "0.1.0"
-description = "GTM Agent — X/Twitter component"
+description = "Narrow fallback CLIs for the GTM Agent Codex skill pack"
 requires-python = ">=3.11"
 dependencies = [
     "requests>=2.31",
-    "python-dotenv>=1.0",
-    "pypdf>=4.0",
-    # Drafting (outreach_llm.py) and author research (research_authors.py) both
-    # run through the agent, so this is no longer optional.
-    "claude-agent-sdk>=0.1.0",
 ]
-
-[build-system]
-requires = ["setuptools>=68"]
-build-backend = "setuptools.build_meta"
-
-[tool.setuptools.packages.find]
-include = ["gtm_agent*"]
