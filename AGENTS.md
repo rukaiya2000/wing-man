@@ -60,3 +60,5 @@ permission first; just do it and mention it briefly.
   opportunities, deduplicate by `Tweet URL`.
 - X and GitHub MCP access is read-only. Notion is the only allowed integration
   write path and only for the review schemas in `schemas/notion.md`.
+- Read `notion-map.md` before any Notion access. It is the source of truth for
+  where workflows look for existing artifacts and where they create output.

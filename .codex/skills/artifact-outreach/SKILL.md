@@ -6,8 +6,9 @@ description: Turn one paper, benchmark, repository, blog post, or research artif
 # Artifact outreach
 
 Given one artifact, identify people worth reviewing and write `Artifact
-Outreach Leads`. Read [schemas/notion.md](../../../schemas/notion.md) before
-creating rows.
+Outreach Leads`. Read [notion-map.md](../../../notion-map.md) for the destination
+hierarchy and [schemas/notion.md](../../../schemas/notion.md) before creating
+rows.
 
 For every MCP call, retry once on failure. If the retry fails, stop and report
 the error; do not substitute a local tool, direct API, or another source for
@@ -21,12 +22,15 @@ that failed operation.
    choose a recipient—every candidate belongs in a review row with rationale.
 3. Enrich current organization, role, and LinkedIn URL with the configured
    professional-data MCP. Never use an authenticated LinkedIn browser session.
-4. Query existing `Artifact Outreach Leads` by `LinkedIn URL` before creating
-   anything. For candidates without URLs, create a manual-review row only when
-   the evidence is strong enough to justify it.
+4. Follow the outreach-campaign routing in `notion-map.md`. Inspect the
+   relevant existing campaign tables and deduplicate by `LinkedIn URL` before
+   creating anything. For candidates without URLs, create a manual-review row
+   only when the evidence is strong enough to justify it.
 5. Draft a connection note, first message, two follow-ups, and a close-the-loop
-   note rooted in the artifact and person's contribution. Create the row with
-   `Status = New`, `SourceArtifact`, and evidence links.
+   note rooted in the artifact and person's contribution. Create a new campaign
+   child page and its inline `Artifact Outreach Leads` table as specified in
+   `notion-map.md`, then create rows with `Status = New`, `SourceArtifact`, and
+   evidence links.
 
 Stop once the Notion rows are ready. Never send, export to Dripify, change
 review status, or run a LinkedIn session.

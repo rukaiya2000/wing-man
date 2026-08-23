@@ -9,5 +9,6 @@ x_oauth_token.json
 gmail_oauth_token.json
 voice_corpus.json
 memory/
+notion-map.md
 exports/
 runs/
