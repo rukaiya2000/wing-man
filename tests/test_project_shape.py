@@ -15,8 +15,8 @@ class ProjectShapeTests(unittest.TestCase):
         config = tomllib.loads((ROOT / ".codex" / "config.toml").read_text())
         servers = config["mcp_servers"]
         self.assertEqual(set(servers), {"notion", "x", "github"})
-        self.assertEqual(servers["x"]["command"], "npx")
-        self.assertEqual(servers["x"]["startup_timeout_sec"], 300)
+        self.assertEqual(servers["x"]["url"], "https://api.x.com/mcp")
+        self.assertEqual(servers["x"]["bearer_token_env_var"], "X_BEARER_TOKEN")
         for server in servers.values():
             allowed = " ".join(server["enabled_tools"]).lower()
             self.assertFalse(any(word in allowed for word in ("send", "publish", "delete", "create_article", "bookmark")))
