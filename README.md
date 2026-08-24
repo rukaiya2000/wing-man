@@ -8,7 +8,7 @@ backend, worker, scheduler, or standalone application.
 
 - Codex CLI is the interaction surface; Notion is the review/output surface.
 - Skills own workflow logic and hard rules. MCP servers are the first choice
-  for external systems. Local Python is limited to two read-only adapters for
+  for external systems. Local Python is limited to a read-only adapter for
   systems without a suitable configured MCP.
 - The agent never sends messages, publishes or schedules X posts, uses a
   founder's LinkedIn browser session, or silently selects outreach recipients.
@@ -41,12 +41,14 @@ The project MCP servers are declared in [.codex/config.toml](.codex/config.toml)
 - X MCP uses the founder's funded developer account through Codex OAuth and is
   restricted to reading posts and profiles.
 - GitHub MCP is read-only for code, contributor, and release research.
+- Apollo and Crustdata MCP provide read-only company and professional-profile
+  discovery. Their allowlists exclude contacts, lists, sequences, email, and
+  every other outbound or workspace mutation tool.
 
 No filled `.env` file is committed. `tools/scholar.py` reads free scholarly
-metadata without credentials. `tools/linkedin_fresh.py` is an optional paid
-Fresh LinkedIn Data/RapidAPI adapter; copy [.env.example](.env.example) to a
-local `.env` and add its key and subscribed endpoint URLs only if you use it.
-Both tools are read-only and never write to a third-party system.
+metadata without credentials. Crustdata MCP reads `CRUSTDATA_API_KEY` from the
+local environment; Apollo MCP uses browser OAuth and does not require an API
+key in this repository.
 
 Dripify is a manual handoff: export approved Notion rows with LinkedIn URLs
 and import them into your Dripify campaign yourself. Wing-Man never signs in,
@@ -54,7 +56,6 @@ uploads leads, starts campaigns, or sends messages.
 
 ```bash
 python3 tools/scholar.py --help
-python3 tools/linkedin_fresh.py --help
 ```
 
 Run validation with:
