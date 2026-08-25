@@ -1,13 +1,13 @@
 # Notion review schemas
 
-Notion MCP is the sole output path. Before creating a row, fetch the target
-database and query existing rows by its natural key. Skills may create a row
-with `Status = New` and fill the fields below; only the founder sets `Reviewed`
-or `Rejected`.
+Notion MCP is the sole output path. Skills may create a row with `Status = New`
+and fill the fields below; only the founder sets `Reviewed` or `Rejected`.
+Dripify owns outreach-lead deduplication during import. Natural keys remain
+documented where another review workflow still requires pre-write deduplication.
 
 ## Dripify Leads
 
-Natural key: `LinkedIn URL`.
+Import identifier: `LinkedIn URL`; Dripify owns deduplication.
 
 | Field | Type / use |
 | --- | --- |
@@ -19,8 +19,8 @@ Natural key: `LinkedIn URL`.
 | Status | `New`, `Reviewed`, or `Rejected` |
 
 If a valuable person has no LinkedIn URL, include the row only with explicit
-evidence and mark the missing URL in `Evidence`; it cannot be deduplicated
-automatically.
+evidence and mark the missing URL in `Evidence`; it will require manual review
+before Dripify import.
 
 ## Research Reports
 
@@ -59,7 +59,7 @@ Natural key: `Tweet URL`.
 
 ## Artifact Outreach Leads
 
-Natural key: `LinkedIn URL`.
+Import identifier: `LinkedIn URL`; Dripify owns deduplication.
 
 | Field | Type / use |
 | --- | --- |

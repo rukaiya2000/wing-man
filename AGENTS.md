@@ -56,7 +56,7 @@ permission first; just do it and mention it briefly.
 - Use one focused query per run unless the founder explicitly requests a batch.
 - Notion rows may use only `New`, `Reviewed`, and `Rejected`. Skills may create
   `New`; the founder owns `Reviewed` and `Rejected`.
-- Before creating leads, deduplicate by `LinkedIn URL`. Before creating X
+- Dripify owns lead deduplication during import. Before creating X
   opportunities, deduplicate by `Tweet URL`.
 - X and GitHub MCP access is read-only. Notion is the only allowed integration
   write path and only for the review schemas in `schemas/notion.md`.

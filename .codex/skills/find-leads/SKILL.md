@@ -43,13 +43,13 @@ that failed operation.
 8. In exploratory mode, report the strategy, qualified and held candidates,
    exclusions, provider noise, likely false negatives, queries, and credits;
    then stop without accessing Notion.
-9. In Notion-write mode, follow `notion-map.md`, inspect the relevant campaign
-   tables, and deduplicate qualified candidates by `LinkedIn URL`. Draft the
-   connection note and full follow-up sequence only for new qualified review
-   rows, ground personalization in retained sources, and create the requested
-   campaign child page and inline table with `Status = New` and the original
-   `SourceQuery`. Report sampled, contaminated, qualified, held, excluded,
-   deduplicated, and created counts, plus provider costs and limitations.
+9. In Notion-write mode, follow `notion-map.md`. Draft the connection note and
+   full follow-up sequence only for qualified review rows, ground
+   personalization in retained sources, and create the requested campaign
+   child page and inline table with `Status = New` and the original
+   `SourceQuery`. Preserve each LinkedIn URL for Dripify, which owns
+   deduplication during import. Report sampled, contaminated, qualified, held,
+   excluded, and created counts, plus provider costs and limitations.
 
 Stop after the rows are review-ready. Never send, upload to Dripify, change a
 review status, automate a founder LinkedIn session, or invoke contact, list,
