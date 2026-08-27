@@ -20,11 +20,12 @@ that failed operation.
 2. Prioritize first, corresponding, and senior authors; active maintainers;
    and contributors at clearly relevant labs or companies. Do not silently
    choose a recipient—every candidate belongs in a review row with rationale.
-3. Enrich current organization, role, and LinkedIn URL with the configured
-   professional-data MCP. Never use an authenticated LinkedIn browser session.
-4. Follow the outreach-campaign routing in `notion-map.md`. Inspect the
-   relevant existing campaign tables and deduplicate by `LinkedIn URL` before
-   creating anything. For candidates without URLs, create a manual-review row
+3. Enrich current organization, role, and LinkedIn URL with an allowlisted
+   professional-data MCP. Never use an authenticated LinkedIn browser session
+   or invoke contact, list, sequence, email, export, or outbound tools.
+4. Follow the outreach-campaign routing in `notion-map.md`. Preserve each
+   LinkedIn URL for Dripify, which owns deduplication during import. For
+   candidates without URLs, create a manual-review row
    only when the evidence is strong enough to justify it.
 5. Draft a connection note, first message, two follow-ups, and a close-the-loop
    note rooted in the artifact and person's contribution. Create a new campaign

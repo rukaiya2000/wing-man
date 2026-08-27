@@ -17,9 +17,13 @@ enabled_tools = ["search_posts", "get_post", "get_user", "get_user_posts", "get_
 url = "https://api.githubcopilot.com/mcp/"
 enabled_tools = ["search_code", "get_file_contents", "list_commits", "list_issues", "get_issue", "list_pull_requests", "get_pull_request", "list_pull_request_files"]
 
-# Fresh LinkedIn Profile Data is a remote RapidAPI MCP. The local bridge loads
-# its key from the ignored .env file rather than this committed configuration.
-[mcp_servers.linkedin_fresh]
-command = "zsh"
-args = ["tools/run_fresh_linkedin_mcp.sh"]
-startup_timeout_sec = 300
+# Professional-data MCPs are restricted to discovery and enrichment. Apollo
+# authenticates through OAuth; Crustdata reads its API key from the environment.
+[mcp_servers.apollo]
+url = "https://mcp.apollo.io/mcp"
+enabled_tools = ["apollo_mixed_people_api_search", "apollo_mixed_companies_search", "apollo_people_match", "apollo_people_bulk_match", "apollo_organizations_enrich", "apollo_organizations_bulk_enrich"]
+
+[mcp_servers.crustdata]
+url = "https://mcp.crustdata.com/mcp"
+bearer_token_env_var = "CRUSTDATA_API_KEY"
+enabled_tools = ["crustdata_company_identify", "crustdata_company_search_db", "crustdata_people_search_db", "crustdata_people_enrich", "crustdata_autocomplete_person", "crustdata_credits_check"]

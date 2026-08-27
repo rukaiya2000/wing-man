@@ -8,7 +8,7 @@ backend, worker, scheduler, or standalone application.
 
 - Codex CLI is the interaction surface; Notion is the review/output surface.
 - Skills own workflow logic and hard rules. MCP servers are the first choice
-  for external systems. Local Python is limited to two read-only adapters for
+  for external systems. Local Python is limited to a read-only adapter for
   systems without a suitable configured MCP.
 - The agent never sends messages, publishes or schedules X posts, uses a
   founder's LinkedIn browser session, or silently selects outreach recipients.
@@ -29,7 +29,7 @@ from Codex CLI.
 | `artifact-outreach` | Artifact-author/contributor leads and review-ready Dripify sequences |
 
 Read [notion-map.md](notion-map.md) for Notion read/write locations and
-[schemas/notion.md](schemas/notion.md) for allowed fields, natural dedupe keys,
+[schemas/notion.md](schemas/notion.md) for allowed fields, import identifiers,
 and status ownership.
 
 ## Codex configuration
@@ -41,11 +41,14 @@ The project MCP servers are declared in [.codex/config.toml](.codex/config.toml)
 - X MCP uses the founder's funded developer account through Codex OAuth and is
   restricted to reading posts and profiles.
 - GitHub MCP is read-only for code, contributor, and release research.
-- Fresh LinkedIn Profile Data uses RapidAPI's remote MCP host through a local
-  bridge. Set `FRESH_LINKEDIN_MCP_KEY` only in the ignored `.env` file.
+- Apollo and Crustdata MCP provide read-only company and professional-profile
+  discovery. Their allowlists exclude contacts, lists, sequences, email, and
+  every other outbound or workspace mutation tool.
 
 No filled `.env` file is committed. `tools/scholar.py` reads free scholarly
-metadata without credentials.
+metadata without credentials. Crustdata MCP reads `CRUSTDATA_API_KEY` from the
+local environment; Apollo MCP uses browser OAuth and does not require an API
+key in this repository.
 
 Dripify is a manual handoff: export approved Notion rows with LinkedIn URLs
 and import them into your Dripify campaign yourself. Wing-Man never signs in,
